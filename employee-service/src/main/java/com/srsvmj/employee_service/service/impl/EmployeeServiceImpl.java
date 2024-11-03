@@ -32,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO getEmployeeById(Long id) {
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(()->
-                        new ResourceNotFoundException("Employee Not Exist with the given id: "+id));
+                        new ResourceNotFoundException("Employee","id",id));
 
         return EmployeeMapper.mapToEmployeeDTO(employee);
     }
@@ -50,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     public EmployeeDTO updateEmployee(Long id, EmployeeDTO updatedEmployee) {
 
         Employee employee = employeeRepository.findById(id).orElseThrow(()->
-                new ResourceNotFoundException("Employee does not exist with given id: "+id));
+                new ResourceNotFoundException("Employee","id",id));
 
         employee.setId(updatedEmployee.getId());
         employee.setFirstName(updatedEmployee.getFirstName());
@@ -67,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         Employee employee = employeeRepository.findById(id)
                 .orElseThrow(()->
-                        new ResourceNotFoundException("Employee Not Exist with the given id: "+id));
+                        new ResourceNotFoundException("Employee","id",id));
 
         employeeRepository.delete(employee);
     }

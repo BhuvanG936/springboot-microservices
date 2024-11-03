@@ -2,7 +2,7 @@ package com.srsvmj.department_service.service.impl;
 
 import com.srsvmj.department_service.dto.DepartmentDTO;
 import com.srsvmj.department_service.entity.Department;
-import com.srsvmj.department_service.exception.DepartmentNotFoundException;
+import com.srsvmj.department_service.exception.ResourceNotFoundException;
 import com.srsvmj.department_service.mapper.DepartmentMapper;
 import com.srsvmj.department_service.repository.DepartmentRepository;
 import com.srsvmj.department_service.service.DepartmentService;
@@ -49,7 +49,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDTO getDepartmentById(Long id) {
 
         Department department = departmentRepository.findById(id)
-                .orElseThrow(() -> new DepartmentNotFoundException("The Department does not exist with id: "+id));
+                .orElseThrow(() -> new ResourceNotFoundException("Department does not exists with id: "+id));
 
         return modelMapper.map(department, DepartmentDTO.class);
     }
@@ -67,7 +67,7 @@ public class DepartmentServiceImpl implements DepartmentService {
     public DepartmentDTO updateDepartment(Long id, Department department) {
 
         Department existingDepartment = departmentRepository.findById(id)
-                .orElseThrow(()-> new DepartmentNotFoundException("Department does not exist with id: "+id));
+                .orElseThrow(()-> new ResourceNotFoundException("Department does not exist with id: "+id));
 
         existingDepartment.setId(department.getId());
         existingDepartment.setDepartmentName(department.getDepartmentName());
