@@ -86,4 +86,12 @@ public class DepartmentServiceImpl implements DepartmentService {
             departmentRepository.deleteById(id);
         }
     }
+
+    @Override
+    public DepartmentDTO getDepartmentByCode(String departmentCode) {
+
+        Department department = departmentRepository.findByDepartmentCode(departmentCode);
+
+        return modelMapper.map(department, DepartmentDTO.class);
+    }
 }

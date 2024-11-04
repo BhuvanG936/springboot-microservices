@@ -1,5 +1,6 @@
 package com.srsvmj.employee_service.controller;
 
+import com.srsvmj.employee_service.dto.APIResponseDTO;
 import com.srsvmj.employee_service.dto.EmployeeDTO;
 import com.srsvmj.employee_service.service.EmployeeService;
 import lombok.AllArgsConstructor;
@@ -18,20 +19,20 @@ public class EmployeeController {
 
     //1. Build Create New Employee REST API
     @PostMapping
-    public ResponseEntity<EmployeeDTO> createEmployee(@RequestBody EmployeeDTO employeeDTO){
+    public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody EmployeeDTO employeeDTO){
 
-        EmployeeDTO savedEmployee = employeeService.createEmployee(employeeDTO);
+        EmployeeDTO savedEmployee = employeeService.saveEmployee(employeeDTO);
 
         return new ResponseEntity<>(savedEmployee, HttpStatus.CREATED);
     }
 
     //2. Build Get Employee By ID REST API
-    @GetMapping("{id}")
-    public ResponseEntity<EmployeeDTO> getEmployeeById(@PathVariable Long id){
+    @GetMapping("/{id}")
+    public ResponseEntity<APIResponseDTO> getEmployeeById(@PathVariable Long id){
 
-        EmployeeDTO employee = employeeService.getEmployeeById(id);
+        APIResponseDTO apiResponseDTO = employeeService.getEmployeeById(id);
 
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+        return new ResponseEntity<>(apiResponseDTO, HttpStatus.OK);
     }
 
     //3. Build Get All Employees REST API

@@ -26,8 +26,16 @@ public class DepartmentController {
         return new ResponseEntity<>(savedDept, HttpStatus.CREATED);
     }
 
-    //2. GET, Build Get Department By ID, REST API, http://localhost:8080//api/departments/2
-    @GetMapping("{id}")
+    //2. Build Get department REST API
+    @GetMapping("/deptcode/{department-code}")
+    public ResponseEntity<DepartmentDTO> getDepartment(@PathVariable("department-code") String departmentCode){
+
+        DepartmentDTO departmentDTO = departmentService.getDepartmentByCode(departmentCode);
+        return new ResponseEntity<>(departmentDTO, HttpStatus.OK);
+    }
+
+    //3. GET, Build Get Department By ID, REST API, http://localhost:8080//api/departments/2
+    @GetMapping("/{id}")
     public ResponseEntity<DepartmentDTO> getDepartmentById(@PathVariable Long id){
 
         DepartmentDTO department = departmentService.getDepartmentById(id);
@@ -35,7 +43,7 @@ public class DepartmentController {
         return new ResponseEntity<>(department, HttpStatus.OK);
     }
 
-    //3. GET, Build Get All Department, REST API, http://localhost:8080//api/departments
+    //4. GET, Build Get All Department, REST API, http://localhost:8080//api/departments
     @GetMapping
     public ResponseEntity<List<DepartmentDTO>> getAllDepartments(){
 
@@ -44,7 +52,7 @@ public class DepartmentController {
         return new ResponseEntity<>(departments, HttpStatus.OK);
     }
 
-    //4. PUT, Build Update Department REST API
+    //5. PUT, Build Update Department REST API
     @PutMapping("{id}")
     public ResponseEntity<DepartmentDTO> updateDepartment(@PathVariable Long id, @RequestBody Department department){
 
@@ -53,7 +61,7 @@ public class DepartmentController {
         return new ResponseEntity<>(updatedDepartment, HttpStatus.OK);
     }
 
-    //5. DELETE, Build Delete Department REST API
+    //6. DELETE, Build Delete Department REST API
     @DeleteMapping("{id}")
     public ResponseEntity<String> deleteDepartment(@PathVariable Long id){
 
